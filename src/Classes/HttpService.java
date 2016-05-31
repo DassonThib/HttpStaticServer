@@ -30,6 +30,7 @@ public class HttpService implements IHttpService {
             }
             writer.println("");
             //System.out.println(path);
+//            if(Files.get)
             if (!Files.isDirectory(Paths.get(path))) {
                 try {
                     Files.lines(Paths.get(path)).forEach(writer::println);

@@ -75,10 +75,15 @@ public class HttpRequest implements IHttpRequest {
                     }
                     //System.out.println("Clé : " + param[0] + " ,Valeur : " + param[1]);
                 }
-                if (str.equals("") && i > 1 )
-                   // if( (br.readLine() == null)) {
+                if (str.equals("") ) {
+
+                    if (method.contains("POST") && i >= 1)
+                        // if( (br.readLine() == null)) {
                         break;
-               // }
+                    else
+                        break;
+                }
+                // }
             } while ((str = br.readLine()) != null );
             if(method.contains("POST") && i >1)
                 doPost();
@@ -141,7 +146,7 @@ public class HttpRequest implements IHttpRequest {
         }
         FileOutputStream outputStream = null;
         try {
-             outputStream =
+            outputStream =
                     new FileOutputStream(yourFile);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -152,7 +157,7 @@ public class HttpRequest implements IHttpRequest {
             while((str = br.readLine()) != null)
             {
                 System.out.println(str);
-                if(str.contains((String)getParameter(" boundary")))
+                if (str.contains((String) getParameter(" boundary")))
                     break;
                 str+= "\r\n";
                 outputStream.write(str.getBytes());
