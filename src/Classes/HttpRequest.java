@@ -9,6 +9,8 @@ import java.nio.channels.WritableByteChannel;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Thibault on 30/05/2016.
@@ -42,8 +44,20 @@ public class HttpRequest implements IHttpRequest {
             String val = tab[1];
             String[] vals = val.split("\\?");
             this.relativePath = vals[0];
-
-            //System.out.println(str);
+            String fileToDownload = tab[tab.length-2];
+            if( !fileToDownload.substring(fileToDownload.length()-1).equals("/") ) {
+                if(!fileToDownload.contains(".ht")){
+                    String fileSave = "";
+                    int j;
+                    for(j=fileToDownload.length()-1; j>=0;j--)
+                    {
+                        if(fileToDownload.charAt(j) == '/')
+                            break;
+                    }
+                    fileSave = fileToDownload.substring(j+1,fileToDownload.length());
+                    downloadFile( fileSave );
+                }
+            }
 
             String[] param;
             do {
@@ -175,6 +189,44 @@ public class HttpRequest implements IHttpRequest {
                 outputStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    private static final int BUFFER_SIZE = 4096;
+
+    public void downloadFile(String fileName) {
+        downloadFile(fileName, getRootPath());
+    }
+
+    public void downloadFile(String fileName,String path) {
+        InputStream inputStream = null;
+        try {
+            File file = new File(path+getRelativePath());
+            if( file.isDirectory() || !file.exists() ) {
+                System.out.println("No file to download.");
+                return;
+            }
+            inputStream = new FileInputStream(file);
+            String saveFilePath = getRootPath()+"\\dl\\" + fileName;
+            File saved = new File(saveFilePath);
+            saved.createNewFile();
+            FileOutputStream outputStream = new FileOutputStream(saved);
+            int bytesRead = -1;
+            byte[] buffer = new byte[BUFFER_SIZE];
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            outputStream.close();
+            System.out.println("File downloaded");
+        } catch (IOException ex) {
+//            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if( inputStream != null )
+                    inputStream.close();
+            } catch (IOException ex) {
+                Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
