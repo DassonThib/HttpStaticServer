@@ -54,7 +54,7 @@ public class HttpService implements IHttpService {
 
                     public boolean accept(File f) {	return f.isDirectory(); }
                 })) {
-                    writer.print("<li><a href=\"" + requestedURI + f.getName() + "\">" + f.getName() + "</a> (directory)</li>");
+                    writer.print("<li><a href=\"" + requestedURI + f.getName() + "/\">" + f.getName() + "</a> (directory)</li>");
                 }
 
 
