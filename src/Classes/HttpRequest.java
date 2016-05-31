@@ -17,24 +17,32 @@ public class HttpRequest implements IHttpRequest {
     private Socket socket;
     private Map<String, String> cookies;
     private Map<String, String> parameters;
+    private Map<String, String> params;
     private String method;
-    private String relativePath, absolutePath;
+    private String relativePath, absolutePath, name;
 
     public HttpRequest(Socket s) throws IOException{
         this.cookies = new HashMap<>();
         this.parameters = new HashMap<>();
+        this.params = new HashMap<>();
         this.socket = s;
         BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         String str = br.readLine();
         if(str != null) {
-            String[] tab = str.split(" / ");
+            String[] tab = str.split(" ");
             this.method = tab[0];
-            System.out.println(method);
+            String val = tab[1];
+            String[] vals = val.split("\\?");
+            this.relativePath = vals[0];
+
+            //System.out.println(str);
+
             String[] param;
             do {
                 if ((param = str.split(":")).length > 1) {
-                    System.out.println(str);
+                    //System.out.println(str);
                     this.parameters.put(param[0], param[1]);
+                    //System.out.println(param[0]);
                     if (param[0].equals("Host")){
                         String[] path;
                         if((path = param[2].split("/")).length > 1){
@@ -92,6 +100,6 @@ public class HttpRequest implements IHttpRequest {
 
     @Override
     public String getAbsolutePath() {
-        return "C:\\www\\monsite\\"+this.absolutePath;
+        return "C:/www/monsite"+this.relativePath;
     }
 }
