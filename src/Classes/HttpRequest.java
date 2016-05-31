@@ -77,10 +77,10 @@ public class HttpRequest implements IHttpRequest {
                 }
                 if (str.equals("") ) {
 
-                    if (method.contains("POST") && i >= 1)
+                    if (method.contains("POST") && i >= 2)
                         // if( (br.readLine() == null)) {
                         break;
-                    else
+                    if(method.contains("GET"))
                         break;
                 }
                // }
@@ -133,10 +133,14 @@ public class HttpRequest implements IHttpRequest {
         return "C:/www/monsite"+this.relativePath;
     }
 
+    public String getRootPath()
+    {
+        return "C:/www/monsite";
+    }
     public void doPost(){
         String str = "";
 
-        File yourFile = new File(getAbsolutePath()+"\\files\\"+(String)getParameter(" filename"));
+        File yourFile = new File(getRootPath()+"\\files\\"+(String)getParameter(" filename"));
         if(!yourFile.exists()) {
             try {
                 yourFile.createNewFile();
