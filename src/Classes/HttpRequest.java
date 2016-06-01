@@ -24,6 +24,7 @@ public class HttpRequest implements IHttpRequest {
     private String method;
 
     private String relativePath, absolutePath;
+    private String name;
     private BufferedReader br;
     private boolean upload;
 
@@ -61,17 +62,15 @@ public class HttpRequest implements IHttpRequest {
 
             String[] param;
             do {
-                //System.out.println(str);
+                System.out.println(str);
                 if ((param = str.split(":")).length > 1) {
 
                     this.parameters.put(param[0], param[1]);
                     //System.out.println(param[0]);
                     if (param[0].equals("Host")){
                         String[] path;
-                        if((path = param[2].split("/")).length > 1){
-                            this.absolutePath = path[1];
-                        } else {
-                            this.absolutePath = "";
+                        if((path = param[1].split("\\.")).length > 1){
+                            this.name = path[1];
                         }
                     }
                     if (param[0].equals("Content-Type"))
@@ -144,13 +143,14 @@ public class HttpRequest implements IHttpRequest {
 
     @Override
     public String getAbsolutePath() {
-        return "C:/www/monsite"+this.relativePath;
+        return "C:/www/"+name+this.relativePath;
     }
 
     public String getRootPath()
     {
-        return "C:/www/monsite";
+        return "C:/www/"+name;
     }
+
     public void doPost(){
         String str = "";
 
