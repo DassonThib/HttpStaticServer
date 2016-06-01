@@ -1,16 +1,15 @@
-import Classes.HttpRequest;
-import Classes.HttpResponse;
-import Classes.HttpService;
-
+package MainPackage;
 import java.io.*;
-import java.net.*;
 
 /**
  * Created by Thibault on 30/05/2016.
  */
 public class Serveur {
+
     public static void main(String[] args) throws IOException{
-        HttpServer server = new HttpServer();
+
+
+        HttpMyServer server = new HttpMyServer(81);
         server.run();
     }
 }
