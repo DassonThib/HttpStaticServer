@@ -58,11 +58,16 @@ public class HttpMyServer {
         HttpRequest request;
         HttpResponse response;
 
+        System.out.println("serveur sur le port   ==> " + this.port);
+        System.out.println(Thread.currentThread().getName());
+
         Socket forward = new Socket("localhost",82);
+
         PrintWriter writer = new PrintWriter(forward.getOutputStream(),true);
         PrintWriter writer2 = new PrintWriter(clientSocket.getOutputStream(),true);
         BufferedReader br = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        String str,str2;
+        String str;
+
         while ((str = br.readLine()) != null )
         {
             writer.println(str);
@@ -70,13 +75,17 @@ public class HttpMyServer {
                 break;
         }
         BufferedReader br2 = new BufferedReader(new InputStreamReader(forward.getInputStream()));
-
+        int i =0;
         while ((str = br2.readLine()) != null )
         {
             writer2.println(str);
-            if (str.equals("") )
+            if (str.equals("") ) {
+                i++;
+                if(i >1 )
                 break;
+            }
         }
+        writer2.close();
 
     }
 
