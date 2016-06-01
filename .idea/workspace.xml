@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6c6a8797-8c59-468b-b026-2f2092aa20c6" name="Default" comment="">
-      <change type="DELETED" beforePath="F:\archi\tibostole\HttpStaticServer\.idea\.name" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/HttpStaticServer/Classes/HttpRequest.class" afterPath="$PROJECT_DIR$/out/production/HttpStaticServer/Classes/HttpRequest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/ServeurHttpStatic/Serveur.class" afterPath="$PROJECT_DIR$/out/production/ServeurHttpStatic/Serveur.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Classes/HttpRequest.java" afterPath="$PROJECT_DIR$/src/Classes/HttpRequest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/HttpStaticServer/resources/conf.properties" afterPath="$PROJECT_DIR$/out/production/HttpStaticServer/resources/conf.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/resources/conf.properties" afterPath="$PROJECT_DIR$/src/resources/conf.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MainPackage/HttpMyServer.java" afterPath="$PROJECT_DIR$/src/MainPackage/HttpMyServer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Classes/Proxy.java" afterPath="$PROJECT_DIR$/src/Classes/Proxy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MainPackage/Serveur.java" afterPath="$PROJECT_DIR$/src/MainPackage/Serveur.java" />
     </list>
     <ignored path="HttpStaticServer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -422,12 +418,6 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
-      <node-options />
-      <gulpfile />
-      <tasks />
-      <arguments />
-      <pass-parent-envs>true</pass-parent-envs>
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="osgi.bnd.run" factoryName="Run Launcher">
@@ -462,12 +452,12 @@
       <created>1464776609198</created>
       <option name="number" value="Default" />
       <updated>1464776609198</updated>
-      <workItem from="1464776610802" duration="13014000" />
+      <workItem from="1464776610802" duration="12228000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13014000" />
+    <option name="totallyTimeSpent" value="12228000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="8" y="5" width="1198" height="1056" extended-state="0" />
