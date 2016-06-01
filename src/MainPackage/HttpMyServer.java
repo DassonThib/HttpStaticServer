@@ -1,15 +1,14 @@
 package MainPackage;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Properties;
 
 import Classes.HttpRequest;
 import Classes.HttpResponse;
 import Classes.HttpService;
+import Classes.Proxy;
 import Thread.ThreadPool;
 
 /**
@@ -19,11 +18,11 @@ public class HttpMyServer {
     public int port ;
     ServerSocket socket = null;
     public Socket clientSocket;
-
+    Proxy myProxy;
 
 
     public HttpMyServer() throws IOException {
-       // myProxy = new Proxy();
+       //
     }
 
     public HttpMyServer(int port) throws IOException {
@@ -33,7 +32,25 @@ public class HttpMyServer {
     public ThreadPool pool;
 
     public void initProxy() throws IOException {
+        myProxy = new Proxy();
+        try {
+            Properties prop = new Properties();
+            prop.load(new FileInputStream(new File("src/resources/conf.properties")));
 
+            String[] vhostsNames = ((String) prop.getOrDefault("vhosts", "*")).split(",");
+
+            for(String vhostName : vhostsNames) {
+                vhostName = vhostName.trim();
+                // Host information
+                String hostname = (String) prop.getOrDefault(vhostName + ".path", "*");
+                int portConf = Integer.valueOf(((String) prop.getOrDefault(vhostName + ".port", "80")));
+
+                myProxy.setServer(hostname,new Integer(portConf));
+            }
+        } catch (Exception e) {
+            System.out.println("Could not load configuration file " );
+            e.printStackTrace();
+        }
     }
     public void run() throws IOException{
 
@@ -55,17 +72,17 @@ public class HttpMyServer {
 
     public void startForward() throws IOException {
 
-        HttpRequest request;
-        HttpResponse response;
-
         System.out.println("serveur sur le port   ==> " + this.port);
         System.out.println(Thread.currentThread().getName());
-
-        Socket forward = new Socket("localhost",82);
+        int serverNumber = myProxy.getPosition();
+        Socket forward = new Socket(myProxy.getHotst(serverNumber),myProxy.getPort(serverNumber));
 
         PrintWriter writer = new PrintWriter(forward.getOutputStream(),true);
         PrintWriter writer2 = new PrintWriter(clientSocket.getOutputStream(),true);
+
         BufferedReader br = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        BufferedReader br2 = new BufferedReader(new InputStreamReader(forward.getInputStream()));
+
         String str;
 
         while ((str = br.readLine()) != null )
@@ -74,7 +91,7 @@ public class HttpMyServer {
             if (str.equals("") )
                 break;
         }
-        BufferedReader br2 = new BufferedReader(new InputStreamReader(forward.getInputStream()));
+
         int i =0;
         while ((str = br2.readLine()) != null )
         {

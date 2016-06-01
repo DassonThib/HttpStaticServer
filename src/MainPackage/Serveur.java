@@ -1,9 +1,6 @@
 package MainPackage;
-import Classes.Proxy;
 
 import java.io.*;
-import java.net.Socket;
-
 /**
  * Created by Thibault on 30/05/2016.
  */
