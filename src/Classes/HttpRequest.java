@@ -40,7 +40,7 @@ public class HttpRequest implements IHttpRequest {
         if(str != null) {
             String[] tab = str.split(" ");
             this.method = tab[0];
-            System.out.println(method);
+            //System.out.println(method);
             String val = tab[1];
             String[] vals = val.split("\\?");
             this.relativePath = vals[0];
@@ -61,7 +61,7 @@ public class HttpRequest implements IHttpRequest {
 
             String[] param;
             do {
-                System.out.println(str);
+                //System.out.println(str);
                 if ((param = str.split(":")).length > 1) {
 
                     this.parameters.put(param[0], param[1]);
