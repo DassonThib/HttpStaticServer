@@ -30,7 +30,7 @@ public class HttpService implements IHttpService {
             }
             writer.println("");
             //System.out.println(path);
-//            if(Files.get)
+
             if (!Files.isDirectory(Paths.get(path))) {
                 try {
                     Files.lines(Paths.get(path)).forEach(writer::println);
@@ -68,6 +68,8 @@ public class HttpService implements IHttpService {
                 }
                 writer.println("</ul></body></html>");
             }
+        } else {
+            writer.print("<html><body><h2>404 NOT FOUND</h2></body></html>");
         }
         writer.close();
     }
