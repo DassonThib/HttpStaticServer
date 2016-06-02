@@ -5,10 +5,7 @@ import Interface.IHttpResponse;
 import Interface.IHttpService;
 
 import javax.naming.Context;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -33,7 +30,21 @@ public class HttpService implements IHttpService {
 
             if (!Files.isDirectory(Paths.get(path))) {
                 try {
-                    Files.lines(Paths.get(path)).forEach(writer::println);
+//                    Files.lines(Paths.get(path)).forEach(writer::println);
+                    FileInputStream input;
+                    writer.println("content-type:" + Files.probeContentType(Paths.get(request.getAbsolutePath())));
+                    writer.println("");
+                    input = new FileInputStream(new File(request.getAbsolutePath()));
+                    BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
+                    BufferedInputStream reader = new BufferedInputStream(input);
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+                    while ((bytesRead = reader.read(buffer)) != -1) {
+                        out.write(buffer, 0, bytesRead);
+                    }
+                    reader.close();
+                    out.flush();
+                    out.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
