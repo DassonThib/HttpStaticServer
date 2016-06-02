@@ -25,13 +25,14 @@ public class HttpService implements IHttpService {
             for(int i = 0; i<param.length; i++){
                 writer.println(request.getParameter(param[i]));
             }
-            writer.println("");
+
             //System.out.println(path);
 
             if (!Files.isDirectory(Paths.get(path))) {
                 try {
 //                    Files.lines(Paths.get(path)).forEach(writer::println);
                     FileInputStream input;
+                    System.out.println("test");
                     writer.println("content-type:" + Files.probeContentType(Paths.get(request.getAbsolutePath())));
                     writer.println("");
                     input = new FileInputStream(new File(request.getAbsolutePath()));
@@ -49,6 +50,7 @@ public class HttpService implements IHttpService {
                     e.printStackTrace();
                 }
             } else {
+                writer.println("");
                 File file = new File(path);
                 //System.out.println(path);
                 String requestedURI = path.substring(path.length());
