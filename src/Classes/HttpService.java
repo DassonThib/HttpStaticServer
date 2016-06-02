@@ -45,10 +45,10 @@ public class HttpService implements IHttpService {
                 writer.println("<html><body>");
                 writer.print("<h1>Directory " + path + "</h1>");
                 writer.print("<ul>");
-                writer.print("<li><a href=\"" + requestedURI + "..\">..</a></li>");
-                /*for(int i=0; i<listOfFiles.length; i++) {
-                    writer.println("<li><a href=\""+requestedURI + listOfFiles[i]+"\">"+listOfFiles[i]+"</a></li>");
-                }*/
+
+
+                if(!path.equals(request.getRootPath()+"/"))
+                    writer.print("<li><a href=\"" + requestedURI + "..\">..</a></li>");
 
                 // Directory
                 for(File f : file.listFiles(new FileFilter() {
